@@ -21,7 +21,7 @@ def get_weather_forecast(city = 'Denver'):
                     "sunriseTime", "sunsetTime"],
         "units": "imperial",
         "timesteps": ["1d", "1h"],
-        "apikey": API_KEY,
+        "apikey": api_key,
         "startTime": dt.datetime.now(dt.timezone.utc).isoformat(),
         "endTime": (dt.datetime.now(dt.timezone.utc) + dt.timedelta(days=4)).isoformat(),
     }
