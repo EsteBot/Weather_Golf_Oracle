@@ -7,9 +7,7 @@ import pytz
 from pytz import timezone 
 from datetime import datetime, timedelta
 
-headers = {
-    "authorization": st.secrets["Tomorrow_API_KEY"]
-}
+api_key = st.secrets["Tomorrowio_API_KEY"]
 
 # Define the MST timezone
 mst = timezone('US/Mountain')
