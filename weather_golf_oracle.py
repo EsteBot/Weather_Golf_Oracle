@@ -23,7 +23,7 @@ def get_weather_forecast(city = 'Denver'):
         "timesteps": ["1d", "1h"],
         "apikey": api_key,
         "startTime": dt.datetime.now(dt.timezone.utc).isoformat(),
-        "endTime": (dt.datetime.now(dt.timezone.utc) + dt.timedelta(days=4)).isoformat(),
+        "endTime": (dt.datetime.now(dt.timezone.utc) + dt.timedelta(days=5)).isoformat(),
     }
 
     response = requests.get(url, params=params)
@@ -103,8 +103,8 @@ def graph_forecast_w_highlight(filtered_forecast, sunset_dt_mst, select_date, da
 
         # Check if the current time is later than the sunset time
         if now_utc_str > sunset_dt_mst:
-            st.write("The current time is past sunset") 
-            st.write("The :rainbow[Golf-able Oracle] is already dreaming about tomorrow's golf-abilities.")
+            st.subheader("The current time is past sunset") 
+            st.subheader("The :rainbow[Golf-able Oracle] is already dreaming about tomorrow's golf-abilities.")
             golfable_hrs_each_day(filtered_forecast, min_temp, max_wind, max_rain, select_date)
             return
     
