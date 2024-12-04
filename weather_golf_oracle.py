@@ -8,7 +8,7 @@ from pytz import timezone
 from datetime import datetime, timedelta
 
 headers = {
-    "authorization": st.secrets["auth_key"]
+    "authorization": st.secrets["Tomorrow_API_KEY"]
 }
 
 # Define the MST timezone
