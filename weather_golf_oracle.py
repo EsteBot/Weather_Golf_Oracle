@@ -7,10 +7,10 @@ import pytz
 from pytz import timezone 
 from datetime import datetime, timedelta
 
-api_key = st.secrets["Tomorrowio_API_KEY"]
-
 # Define the MST timezone
 mst = timezone('US/Mountain')
+
+API_KEY = open(r"X:\Code_Projects\Streamlit\Golf_Oracle\api_key.txt", 'r').read()
 
 # Function to get weather data
 def get_weather_forecast(city = 'Denver'):
@@ -21,7 +21,7 @@ def get_weather_forecast(city = 'Denver'):
                     "sunriseTime", "sunsetTime"],
         "units": "imperial",
         "timesteps": ["1d", "1h"],
-        "apikey": api_key,
+        "apikey": API_KEY,
         "startTime": dt.datetime.now(dt.timezone.utc).isoformat(),
         "endTime": (dt.datetime.now(dt.timezone.utc) + dt.timedelta(days=5)).isoformat(),
     }
@@ -104,7 +104,9 @@ def graph_forecast_w_highlight(filtered_forecast, sunset_dt_mst, select_date, da
         # Check if the current time is later than the sunset time
         if now_utc_str > sunset_dt_mst:
             st.subheader("The current time is past sunset") 
-            st.subheader("The :rainbow[Golf-able Oracle] is already dreaming about tomorrow's golf-abilities.")
+            st.subheader("")
+            st.subheader("The :rainbow[Golf-able Oracle] is already dreaming about tomorrow's golf-abilities 😴")
+            st.subheader("")
             golfable_hrs_each_day(filtered_forecast, min_temp, max_wind, max_rain, select_date)
             return
     
@@ -229,9 +231,8 @@ def graph_forecast_w_highlight(filtered_forecast, sunset_dt_mst, select_date, da
 
     # Oracle Prophecy
     if temp_diff < 0 or wind_diff > 0 or rain_diff > 0:
+        st.subheader(":red[The] :rainbow[Golf-able Oracle] :red[Has Prophesied Sub-Bar Golf Ranges FORE! This Day]")
         st.subheader("")
-        st.subheader(":red[The] :rainbow[Golf-able Oracle] :red[Has Prophesied Sub-Bar Golf Ranges]")
-        st.subheader(f"{select_date}")
         st.subheader("")
 
         golfable_hrs_each_day(filtered_forecast, min_temp, max_wind, max_rain, select_date)
@@ -248,9 +249,8 @@ def graph_forecast_w_highlight(filtered_forecast, sunset_dt_mst, select_date, da
         # Convert to a string representation
         total_hours_string = total_hours_rounded.astype(int).astype(str).to_string(index=False)
 
-        st.subheader("")
         st.subheader(f":green[The] :rainbow[Golf-able Oracle] :green[Has Prophesied] :blue[{total_hours_string}Hr] :green[of Golf-ability]")
-        st.subheader(f"{select_date}")
+        st.subheader("")
         st.subheader("")
 
         golfable_hrs_each_day(filtered_forecast, min_temp, max_wind, max_rain, select_date)
@@ -332,12 +332,16 @@ def week_day_metrics(select_date, total_consecutive_hours_list):
     six_days_name_list = [(today_date_obj + timedelta(days=i)).strftime('%A') for i in range(0, 6)]
 
     col1, col2, col3, col4, col5 = st.columns([1, 1, 1, 1, 1], gap='large')
+
+    st.write("")
+    st.subheader(f":blue[The] :rainbow[Golf-able Oracle] :blue[Has Made Prophecies :green[FORE!] The Above Days]")
     
     with col1:
         st.metric(
             label=six_days_date_list[0],
             value=six_days_name_list[0][:3],
-            delta=-1 if total_consecutive_hours_list[0] == 0 else total_consecutive_hours_list[0]
+            delta=0 if total_consecutive_hours_list[0] == 0 else total_consecutive_hours_list[0],
+            delta_color="off" if total_consecutive_hours_list[0] == 0 else "normal"
         )
         date_str = six_days_date_list[0]
         date_obj = datetime.strptime(date_str, '%Y-%m-%d')
@@ -350,7 +354,8 @@ def week_day_metrics(select_date, total_consecutive_hours_list):
         st.metric(
             label=six_days_date_list[1],
             value=six_days_name_list[1][:3],
-            delta=-1 if total_consecutive_hours_list[1] == 0 else total_consecutive_hours_list[1]
+            delta=0 if total_consecutive_hours_list[1] == 0 else total_consecutive_hours_list[1],
+            delta_color="off" if total_consecutive_hours_list[1] == 0 else "normal"
         )
         date_str = six_days_date_list[1]
         date_obj = datetime.strptime(date_str, '%Y-%m-%d')
@@ -363,7 +368,8 @@ def week_day_metrics(select_date, total_consecutive_hours_list):
         st.metric(
             label=six_days_date_list[2],
             value=six_days_name_list[2][:3],
-            delta=-1 if total_consecutive_hours_list[2] == 0 else total_consecutive_hours_list[2]
+            delta=0 if total_consecutive_hours_list[2] == 0 else total_consecutive_hours_list[2],
+            delta_color="off" if total_consecutive_hours_list[2] == 0 else "normal"
         )
         date_str = six_days_date_list[2]
         date_obj = datetime.strptime(date_str, '%Y-%m-%d')
@@ -376,7 +382,8 @@ def week_day_metrics(select_date, total_consecutive_hours_list):
         st.metric(
             label=six_days_date_list[3],
             value=six_days_name_list[3][:3],
-            delta=-1 if total_consecutive_hours_list[3] == 0 else total_consecutive_hours_list[3]
+            delta=0 if total_consecutive_hours_list[3] == 0 else total_consecutive_hours_list[3],
+            delta_color="off" if total_consecutive_hours_list[3] == 0 else "normal"
         )
         date_str = six_days_date_list[3]
         date_obj = datetime.strptime(date_str, '%Y-%m-%d')
@@ -389,7 +396,8 @@ def week_day_metrics(select_date, total_consecutive_hours_list):
         st.metric(
             label=six_days_date_list[4],
             value=six_days_name_list[4][:3],
-            delta=-1 if total_consecutive_hours_list[4] == 0 else total_consecutive_hours_list[4]
+            delta=0 if total_consecutive_hours_list[4] == 0 else total_consecutive_hours_list[4],
+            delta_color="off" if total_consecutive_hours_list[4] == 0 else "normal"
         )
         date_str = six_days_date_list[4]
         date_obj = datetime.strptime(date_str, '%Y-%m-%d')
@@ -404,9 +412,14 @@ def on_button_click(data, select_date):
 
 def display_golf_forecast(data, date, min_temp, max_wind, max_rain, sunrise_time, sunset_time, filtered_forecast):
     
-    """Display golf forecast metrics and hourly weather data."""
-    st.subheader(f"Golf-ability Weather Forecast Key Metrics") 
+    # Greeting msg and tag line
+    st.title(f"The :rainbow[Golf-able Oracle] Prophecy")
+    st.subheader(f"{city}")
     st.subheader(f"{date}")
+    st.write("")
+    st.write("")
+    # Display golf forecast metrics and hourly weather data
+    st.subheader(f"Weather Forecast Key Metrics") 
     st.write("")
     
     # Extract daily forecast for the specified date
@@ -472,7 +485,8 @@ def display_golf_forecast(data, date, min_temp, max_wind, max_rain, sunrise_time
         )
 
     st.write("")
-    st.write(f"### Hourly Forecast for {date} from Twilight to Dusk 🏌🏻‍♂️")
+    st.write("")
+    st.write(f"### Hourly Forecast from Twilight to Dusk 🏌🏻‍♂️")
     st.write("")
     
     # Convert sunrise and sunset times to MST
@@ -517,12 +531,12 @@ def get_data_for_select_date(data, select_date=None):
                 data, forecast_date, min_temp, max_wind, max_rain, sunrise_time, sunset_time, 
                 filtered_forecast)
 
-            return select_date
+            return select_date, city
 
 ####### Initial Streamlit page configuration #######
     
 st.set_page_config(
-page_title = "Golf Weather Oracle",
+page_title = "The Golf-able Oracle",
 page_icon = "Active",
 layout = "wide",
 )
