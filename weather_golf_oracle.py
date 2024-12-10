@@ -7,10 +7,11 @@ import pytz
 from pytz import timezone 
 from datetime import datetime, timedelta
 
+# API tomorrowio key with streamlit secrets feature
+api_key = st.secrets["Tomorrowio_API_KEY"]
+
 # Define the MST timezone
 mst = timezone('US/Mountain')
-
-API_KEY = open(r"X:\Code_Projects\Streamlit\Golf_Oracle\api_key.txt", 'r').read()
 
 # Function to get weather data
 def get_weather_forecast(city = 'Denver'):
