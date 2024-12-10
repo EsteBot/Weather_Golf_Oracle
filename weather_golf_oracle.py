@@ -544,7 +544,7 @@ layout = "wide",
 
 # User inputs
 st.sidebar.header(":green[City Location]")
-city = st.sidebar.text_input("Example: Denver")
+city = st.sidebar.text_input("Example: Denver", value='Denver')
 
 st.sidebar.header(":green[Min Golf-able Temp]")
 min_temp = st.sidebar.number_input("°F", value=50, step=1)
